@@ -1,2 +1,3 @@
 # COSC1430
-Demo
+This is an in-class demo
+Here is some information about the demo.
