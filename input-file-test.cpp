@@ -1,20 +1,40 @@
 #include <iostream>
 #include <fstream>
+#include <algorithm>
 using namespace std;
 
 int main () {
+    int* board = new int[81];
+    int** temp = new int*[9];
+    
+    for (int row = 0; row < 9; row++) 
+    {
+        temp[row] = &board[row * 9];
+    }
+
     string line;
     ifstream myfile ("samplesudoku1.txt");
     
     if (myfile.is_open())
     {
+        int x = 0, rowCounter = 0;
         cout << endl;
+
         while (getline(myfile,line))
         {
+            int colCounter = 0;
+
             if (line != "") {
-                cout << "-------------------------------------" << endl;
+                if ((rowCounter == 3) || (rowCounter == 6))
+                {
+                    cout << "---------------------------------------\n";
+                }
+                cout << "---------------------------------------" << endl;
+                int index = 0;
+
                 for (int i = 0; i < line.length(); i++)
                 {
+                    
                     if (i == 0) 
                     {
                         cout << "|";
@@ -22,21 +42,41 @@ int main () {
                     
                     if (isdigit(line[i])) 
                     {
-                        if (line[i] == '0')
+                        ++colCounter;
+                        temp[x][index] = line[i];
+                        //cout << "(" << x << "," << index << ")=" << line[i] << endl;
+                        if ((colCounter == 3) || (colCounter == 6))
                         {
-                            cout << "   |";
+                            if (line[i] == '0')
+                            {
+                                cout << "   ||";
+                            }
+                            else 
+                            {
+                                cout << " " << line[i] << " ||";
+                            }
                         }
                         else 
                         {
-                            cout << " " << line[i] << " |";
+                            if (line[i] == '0')
+                            {
+                                cout << "   |";
+                            }
+                            else 
+                            {
+                                cout << " " << line[i] << " |";
+                            }
                         }
+                        index++;
                     }
 
                 }
-                cout << endl;
+                cout << "Done"<< endl;
+                rowCounter++;
+                x++;
             }
         }
-        cout << "-------------------------------------\n" << endl;
+        cout << "---------------------------------------\n" << endl;
         myfile.close();
     }
     else
@@ -45,6 +85,9 @@ int main () {
     }
 
     myfile.close();
-    
+
+    delete[] temp;
+    delete[] board;
+
     return 0;
 }
