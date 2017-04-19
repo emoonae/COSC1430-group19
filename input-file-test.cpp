@@ -71,7 +71,6 @@ int main () {
                     }
 
                 }
-                cout << "Done"<< endl;
                 rowCounter++;
                 x++;
             }
