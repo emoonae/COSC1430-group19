@@ -1,19 +1,22 @@
 #include <iostream>
 #include <fstream>
-#include <algorithm>
+
 using namespace std;
 
+const int BOARD_SIZE = 81;
+const int SIZE = 9;
+
 int main () {
-    int* board = new int[81];
-    int** temp = new int*[9];
+    int* board = new int[BOARD_SIZE];
+    int** temp = new int*[SIZE];
     
-    for (int row = 0; row < 9; row++) 
+    for (int row = 0; row < SIZE; row++) 
     {
-        temp[row] = &board[row * 9];
+        temp[row] = &board[row * SIZE];
     }
 
     string line;
-    ifstream myfile ("samplesudoku1.txt");
+    ifstream myfile ("samplesudoku2.txt");
     
     // read file, print initial board & populate multi-dimensional array
     if (myfile.is_open())
@@ -58,19 +61,19 @@ int main () {
 
         cout << "EMPTY SPACES: " << solved << endl; // inital number of empty spaces
 
-        int check[9]; // array of possibilities -- index: 1-9
+        int check[SIZE]; // array of possibilities -- index: 1-9
  
         // while there are still zeroes in the multi-dimensional array
         while (solved != 0)
         {
-            for (int row=0; row<9; row++)
+            for (int row=0; row<SIZE; row++)
             {
-                for (int col=0; col<9; col++)
+                for (int col=0; col<SIZE; col++)
                 {
                     int rowBlock = row / 3; // assigns 0,1,2 -- based on row value
                     int colBlock = col / 3; // assigns 0,1,2 -- based on col value
 
-                    for (int a = 1; a <= 9; a++)
+                    for (int a = 1; a <= SIZE; a++)
                     {
                         check[a] = 1; // assign each value '1' (true) by default
                     }
@@ -79,23 +82,23 @@ int main () {
                     if (temp[row][col] == 0)
                     {
                         // check rows
-                        for (int look=0; look < 9; look++)
+                        for (int look=0; look < SIZE; look++)
                         {
                             int cell = temp[row][look];
                             check[cell] = 0;
                         }
                         // check cols
-                        for (int look=0; look < 9; look++)
+                        for (int look=0; look < SIZE; look++)
                         {
                             int cell = temp[look][col];
                             check[cell] = 0;
                         }
                         // check 3x3 grid
-                        for (int checkRow=0; checkRow < 9; checkRow++)
+                        for (int checkRow=0; checkRow < SIZE; checkRow++)
                         {
                             if (checkRow / 3 == rowBlock)
                             {
-                                for (int checkCol=0; checkCol < 9; checkCol++)
+                                for (int checkCol=0; checkCol < SIZE; checkCol++)
                                 {
                                     if (checkCol / 3 == colBlock)
                                     {
@@ -108,7 +111,7 @@ int main () {
 
                         int answer, sum = 0;
                         // loop through possible answers
-                        for (int look=1; look<=9; look++) {
+                        for (int look=1; look<=SIZE; look++) {
                             if (check[look] == 1)
                             {
                                 answer = look; // answer is only possibility, OR last possibility
@@ -128,9 +131,9 @@ int main () {
 
         // print solved puzzle
         cout << "\n-------------------------------------" << endl;
-        for (int row = 0; row < 9; row++)
+        for (int row = 0; row < SIZE; row++)
         {
-            for (int col=0; col < 9; col++)
+            for (int col=0; col < SIZE; col++)
             {
                 if (col == 0) 
                 {
