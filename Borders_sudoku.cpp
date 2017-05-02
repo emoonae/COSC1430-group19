@@ -16,7 +16,7 @@ int main () {
     }
 
     string line;
-    ifstream myfile ("samplesudoku2.txt");
+    ifstream myfile ("samplesudoku4.txt");
     
     // read file, print initial board & populate multi-dimensional array
     if (myfile.is_open())
@@ -96,16 +96,22 @@ int main () {
                         // check 3x3 grid
                         for (int checkRow=0; checkRow < SIZE; checkRow++)
                         {
-                            if (checkRow / 3 == rowBlock)
+                            for (int checkCol=0; checkCol < SIZE; checkCol++)
                             {
-                                for (int checkCol=0; checkCol < SIZE; checkCol++)
+                                int cell = temp[checkRow][checkCol];
+                                
+                                if ((checkRow / 3 == rowBlock) && (checkCol / 3 == colBlock)) // rows in same row block, columns in same column block
                                 {
-                                    if (checkCol / 3 == colBlock)
-                                    {
-                                        int cell = temp[checkRow][checkCol];
-                                        check[cell] = 0;
-                                    }
+                                    check[cell] = 0;
                                 }
+                                /*else if ((checkRow / 3 == rowBlock) && (checkCol / 3 != colBlock))
+                                {
+                                    
+                                }
+                                else if ((checkRow / 3 != rowBlock) && (checkCol / 3 == colBlock))
+                                {
+                                    
+                                }*/
                             }
                         }
 
@@ -127,6 +133,27 @@ int main () {
                     } // end of solving board
                 } // end of column loop 
             } // end of row loop
+
+            cout << "\n-------------------------------------" << endl;
+            
+            for (int x = 0; x < SIZE; x++)
+            {
+                for (int index = 0; index < SIZE; index++)
+                {
+                    cout << "| ";
+                    if (temp[x][index] == 0)
+                    {
+                        cout << "  ";
+                    }
+                    else 
+                    {
+                        cout << temp[x][index] << " ";
+                    }
+                }
+                cout << "|\n-------------------------------------" << endl;
+            }
+            
+
         } // end of while loop
 
         // print solved puzzle
