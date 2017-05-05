@@ -147,7 +147,7 @@ int main() {
 
 	string line;
 
-	ifstream myfile("samplesudoku1.txt");
+	ifstream myfile("samplesudoku3.txt");
 
 	if (myfile.is_open()) {
 
@@ -209,7 +209,7 @@ int main() {
 					board[position[0]][position[1]] = a;
 					printBoard(board);
 					//cout << "test \n";
-					//system("pause");
+					system("pause");
 				}
 			}
 		}
