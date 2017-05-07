@@ -16,7 +16,7 @@ int main () {
     }
 
     string line;
-    ifstream myfile ("samplesudoku4.txt");
+    ifstream myfile("samplesudoku4.txt");
     
     // read file, print initial board & populate multi-dimensional array
     if (myfile.is_open())
@@ -61,11 +61,12 @@ int main () {
 
         cout << "EMPTY SPACES: " << solved << endl; // inital number of empty spaces
 
-        int check[SIZE], otherCheck[SIZE], adjacentCheck[SIZE]; // arrays of possibilities -- index: 1-9
+        int check[SIZE], otherCheck[SIZE], adjacentCheck[SIZE], notSolved; // arrays of possibilities -- index: 1-9
  
         // while there are still zeroes in the multi-dimensional array
-        while (solved != 0)
+        while ((solved != 0) && (notSolved != solved))
         {
+            notSolved = solved;
             for (int row=0; row<SIZE; row++)
             {
                 for (int col=0; col<SIZE; col++)
