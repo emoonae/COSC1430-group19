@@ -159,10 +159,8 @@ int main() {
 
 					temp = x / 2;
 					board[temp][y] = line[i] - 48;
-					//cout << y << temp;
-					//cout << temp << " | " << y << " | " << line[i] << " | " << board[temp][y] << endl;
 					y++;
-					//cout << " " << line[i] << endl;
+
 				}
 			}
 			y = 0;
@@ -173,49 +171,33 @@ int main() {
 		y = 0;
 	}
 
-	else cout << "Unable to open file";
+	else { cout << "Unable to open file"; }
 
 
 	while (finish(board) == 0) {
 
 		for (int a = 1; a < 10; a++) {
 			for (int i = 1; i < 10; i++) {
-				//cout << "solving" << endl;
 				temp = 0;
 				for (int x = 0; x < 3; x++) {
 					for (int y = 0; y < 3; y++) {
-						//cout << "Testing number " << a << "in box " << i << endl;
-						//cout << y << "|||" << endl;
-						//cout << BoxCordX(a) + x << " " << BoxCordY(a) + y << endl;
 						if (checkLegal(board, a, BoxCordX(i) + x, BoxCordY(i) + y) == 1) {
-							//cout << i << " | ";
 							temp++;
-							//cout << temp << endl;
 							if (temp == 1) {
 								position[0] = BoxCordX(i) + x;
-								//cout << "position[0] : BoxCorx(a) + x : " << BoxCordX(a) << " + " << x << endl;
 								position[1] = BoxCordY(i) + y;
-								//cout << "position[1] : BoxCorx(a) + y : " << BoxCordX(a) << " + " << y << endl;
-								//cout << position[0] << position[1] << endl;
+
 							}
 						}
 					}
 				}
-				if (temp == 1) {
+				if (temp == 1) {	
 					printBoard(board);
-					cout << "putting " << a << " at position " << position[0] << ", " << position[1] << endl;
-					cout << "Check Legal: " << checkLegal(board, a, position[0], position[1]) << endl;
-					cout << "Box: " << Box(position[0], position[1]) << endl;
 					board[position[0]][position[1]] = a;
-					printBoard(board);
-					//cout << "test \n";
-					system("pause");
+					
 				}
 			}
 		}
-
-		
-
 	}
 
 	for (int x = 0; x < 9; x++) {
